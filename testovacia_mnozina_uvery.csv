@@ -1,0 +1,13 @@
+﻿Klient,Príjem,Konto,Pohlavie,Nezamestnaný,Úver
+K1,Vysoký,Vysoké,Žena,Nie,Áno
+K2,Vysoký,Vysoké,Muž,Nie,Áno
+K3,Nízky,Nízke,Muž,Nie,Nie
+K4,Nízky,Vysoké,Žena,Áno,Áno
+K5,Nízky,Vysoké,Muž,Áno,Áno
+K6,Nízky,Nízke,Žena,Áno,Nie
+K7,Vysoký,Nízke,Muž,Nie,Áno
+K8,Vysoký,Nízke,Žena,Áno,Áno
+K9,Nízky,Stredné,Muž,Áno,Nie
+K10,Vysoký,Stredné,Žena,Nie,Áno
+K11,Vysoký,Stredné,Žena,Áno,Áno
+K12,Nízky,Stredné,Muž,Nie,Áno
