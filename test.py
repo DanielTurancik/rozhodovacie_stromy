@@ -24,7 +24,7 @@ with col2:
 
 
 if dataset_choice == "Úver":
-    st.title("Rozhodovací strom - úver")
+    st.title("Rozhodovací strom - Úver")
 
     train_df = pd.read_csv("testovacia_mnozina_uvery.csv")
     train_df = train_df.drop(columns=["Klient"])
@@ -303,5 +303,46 @@ elif dataset_choice == "Titanic":
     ax3.set_xlabel("Dôležitosť")
     st.pyplot(fig3)
     plt.close(fig3)
+
+    with st.expander("Prerezávanie stromu (Pruning)"):
+        path = clf_t.cost_complexity_pruning_path(X_train_t, y_train_t)
+        ccp_alphas = path.ccp_alphas
+
+        best_acc = 0
+        best_nodes = float('inf')
+        best_clf = None
+        best_alpha = 0
+
+        for alpha in ccp_alphas:
+            clf_pruned = DecisionTreeClassifier(
+                criterion=criterion_t,
+                max_depth=max_depth_t,
+                min_samples_split=min_samples_t,
+                random_state=42,
+                ccp_alpha=alpha
+            )
+            clf_pruned.fit(X_train_t, y_train_t)
+            y_pred_pruned = clf_pruned.predict(X_test_t)
+            acc_pruned = accuracy_score(y_test_t, y_pred_pruned)
+            nodes = clf_pruned.tree_.node_count
+
+            if acc_pruned > best_acc or (acc_pruned == best_acc and nodes < best_nodes):
+                best_acc = acc_pruned
+                best_nodes = nodes
+                best_clf = clf_pruned
+                best_alpha = alpha
+
+        st.success(
+            f"Najlepší model: Presnosť: {best_acc * 100:.2f}%  |  "
+            f"Hĺbka: {best_clf.get_depth()}  |  "
+            f"Uzlov: {best_nodes}"
+        )
+
+        fig_p, ax_p = plt.subplots(figsize=(16, 7))
+        plot_tree(best_clf, feature_names=features_t,
+                  class_names=["Neprežil", "Prežil"],
+                  filled=True, rounded=True, impurity=True, ax=ax_p)
+        st.pyplot(fig_p)
+        plt.close(fig_p)
 
 
