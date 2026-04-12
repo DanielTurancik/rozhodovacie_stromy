@@ -208,7 +208,7 @@ elif dataset_choice == "Titanic":
 
     col_1, col_2, col_3, col_s4 = st.columns(4)
     with col_1:
-        max_depth_t = st.slider("Hĺbka stromu", 1, 40, 3)
+        max_depth_t = st.slider("Hĺbka stromu", 1, 25, 3)
     with col_2:
         criterion_t = st.selectbox("Kritérium", ["gini", "entropy"])
     with col_3:
